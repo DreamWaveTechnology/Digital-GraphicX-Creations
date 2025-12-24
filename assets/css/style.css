@@ -1,0 +1,979 @@
+/* Define Variables for easier color swapping */
+:root {
+        /* Color */
+        --dark-bg: #121212;
+        --light-text: #f0f0f0;
+        --accent-color: #00A3FF;
+        --accent-dark: #0077c2;
+        --border-color: #ffffff1a;
+        --glass-bg: #1e1e1eb3;
+        --glass-bg-card: #1e1e1e66;
+        --shadow-color: #00000080;
+
+        /* Font Size */
+        --font-1: 3.5rem;
+        --font-2: 3rem;
+        --font-3: 2rem;
+        --font-4: 1.75rem;
+        --font-5: 1.5rem;
+        --font-6: 1.25rem;
+        --font-7: 1.2rem;
+        --font-8: 1.1rem;
+        --font-9: 1rem;
+        --font-10: 0.9rem;
+}
+
+/*========== Google Fonts & Bootstrap Icons ==========*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css");
+
+/*=========== Global Reset ==========*/
+* {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        list-style: none;
+        border: none;
+        outline: none;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-family: 'Poppins', sans-serif; /* Poppins Font */
+}
+
+::selection {
+        background-color: #00A3FF;
+        color: #f0f0f0;
+}
+
+/*=========== Smooth Scrolling ==========*/
+html {
+        scroll-behavior: smooth;
+}
+
+/*=========== Body Styling (Dark Theme) ==========*/
+body {
+        min-height: 100vh;
+        max-width: 100vw;
+        color: var(--light-text);
+        /* Light text on dark theme */
+        background: linear-gradient(135deg, var(--dark-bg), #212121);
+        font-family: "Poppins", sans-serif;
+        position: relative;
+        overflow-x: hidden;
+        cursor: url('../imgs/cursor.png'), auto;
+}
+
+/* --- Animated Circles Background (Dark Theme) --- */
+
+/* Circle 1 (body::before) - Smaller, brighter, faster movement */
+body::before {
+        content: '';
+        position: fixed;
+        top: 25%;
+        left: 20%;
+        width: 200px; /* Unique size */
+        height: 200px;
+        background: rgba(0, 163, 255, 0.45); /* Increased lighting/opacity */
+        border-radius: 50%;
+        animation: moveCircles 18s infinite alternate; /* Slightly adjusted duration */
+        filter: blur(100px); /* Increased blur for a softer, brighter glow */
+        z-index: -1;
+}
+
+/* Keyframe for Circle 1 animation */
+@keyframes moveCircles {
+        0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.6;
+        }
+
+        25% {
+                transform: translate(10vw, 5vh) scale(1.1);
+                opacity: 0.7;
+        }
+
+        50% {
+                transform: translate(-10vw, 10vh) scale(0.9);
+                opacity: 0.5;
+        }
+
+        75% {
+                transform: translate(5vw, -5vh) scale(1.05);
+                opacity: 0.8;
+        }
+
+        100% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.6;
+        }
+}
+
+/* NEW Keyframe for a second, different circle animation */
+@keyframes moveCircles2 {
+        0% {
+                transform: translate(0, 0) scale(0.8);
+                opacity: 0.4;
+        }
+        25% {
+                transform: translate(-15vw, -10vh) scale(1.15); /* More scaling */
+                opacity: 0.5;
+        }
+        50% {
+                transform: translate(10vw, 15vh) scale(0.9);
+                opacity: 0.6;
+        }
+        75% {
+                transform: translate(-5vw, 5vh) scale(1.1);
+                opacity: 0.45;
+        }
+        100% {
+                transform: translate(0, 0) scale(0.8);
+                opacity: 0.4;
+        }
+}
+
+/* Circle 2 (body::after) - Larger, softer, slower movement */
+body::after {
+        content: '';
+        position: fixed;
+        bottom: 10%;
+        right: 15%;
+        width: 300px; /* Larger unique size */
+        height: 300px;
+        background: rgba(0, 163, 255, 0.3); /* Slightly less bright for depth */
+        border-radius: 50%;
+        animation: moveCircles2 25s infinite alternate; /* Different animation and duration */
+        filter: blur(120px); /* More blur for a softer, larger glow */
+        z-index: -1;
+}
+
+
+/*========== Navbar Section (Glassy Dark & Shadow) ==========*/
+nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.5rem 5rem;
+        position: fixed;
+        width: 100vw;
+        background: var(--glass-bg); /* Glassmorphism Effect (Dark) */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 2px solid var(--border-color);
+        box-shadow: 0 4px 10px var(--shadow-color); /* Added box shadow */
+        z-index: 1000;
+}
+
+nav .logo h2 {
+        font-size: var(--font-5);
+        font-weight: 600;
+}
+
+nav .nav-items {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+}
+
+.nav-items a {
+        display: flex;
+        gap: 5px;
+        color: var(--light-text); /* Light text color */
+        font-weight: 500;
+}
+
+.nav-items a:hover {
+        color: var(--accent-color); /* Accent color on hover */
+        transform: translateY(-2px);
+}
+
+/* --- NEW: Active Navigation Link Color (Set by JS ScrollSpy) --- */
+.nav-items a.active {
+        color: var(--accent-color); /* Accent color for active link */
+        font-weight: 700;
+}
+
+.nav-items a i {
+        color: var(--accent-color); /* Accent color for icons */
+}
+
+/* NEW: Active Icon Color */
+.nav-items a.active i {
+        color: var(--accent-color);
+}
+
+
+/* Menu Icon */
+.menu-icon {
+        display: none;
+        font-size: var(--font-3);
+        cursor: pointer;
+        color: var(--light-text);
+}
+
+
+/*========== Home Section ==========*/
+.home {
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+}
+
+.home h2 {
+        font-size: var(--font-4);
+        text-align: center;
+}
+
+.home h1 {
+        font-size: var(--font-1);
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin-bottom: 35px;
+}
+
+.home h1 span {
+        color: var(--accent-color);
+}
+
+.home p {
+        text-align: center;
+        max-width: 75vw;
+        font-size: var(--font-6);
+        padding-bottom: 20px;
+}
+
+.home p span {
+        color: var(--accent-color); /* Accent color */
+}
+
+.home .home-btns {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+}
+
+.home-btns a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+}
+
+.home-btns .home-btn {
+        padding: 12px 35px;
+        border: 2px solid var(--light-text);
+        color: var(--light-text);
+        border-radius: 50px;
+        width: 220px;
+        font-weight: 600;
+}
+
+.home-btns .home-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.home-btn i {
+        color: var(--accent-color); /* Accent color */
+        font-size: var(--font-5);
+}
+
+.home-btns .fill-btn {
+        background: var(--accent-color); /* Accent color */
+        color: var(--dark-bg); /* Dark text on accent */
+        border-color: var(--accent-color);
+}
+
+.home-btns .fill-btn i {
+        color: var(--dark-bg);
+}
+
+.home-btns .fill-btn:hover {
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+        color: var(--light-text);
+}
+
+.home-btns .line-btn:hover {
+        background: var(--accent-color);
+        color: var(--dark-bg);
+}
+
+.home-btns .line-btn:hover i {
+        color: var(--dark-bg);
+}
+
+
+/*========== All Section ==========*/
+.section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-top: 100px;
+}
+
+.section h3 {
+        font-size: var(--font-3);
+        text-transform: uppercase;
+        padding-bottom: 20px;
+        text-align: center;
+}
+
+.section h3 span {
+        color: var(--accent-color); /* Accent color */
+}
+
+.section h4 {
+        max-width: 70vw;
+        font-size: var(--font-6);
+        font-weight: 500;
+        padding-bottom: 30px;
+        text-align: center;
+}
+
+.section h5 {
+        font-size: var(--font-5);
+        padding-bottom: 30px;
+        padding-top: 50px;
+        font-weight: 600;
+}
+
+/*========== Services Section ==========*/
+.services-cards {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+        padding: 0 5rem;
+}
+
+.services-cards .service-card {
+        display: flex;
+        flex-direction: column;
+        /* Glassmorphism Card (Dark Theme) */
+        background: var(--glass-bg-card);
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 15px var(--shadow-color);
+}
+
+.services-cards .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+.service-card h1 {
+        text-align: center;
+        font-size: var(--font-2);
+}
+
+.service-card h3 {
+        text-align: center;
+        font-size: var(--font-6);
+        text-transform: capitalize;
+}
+
+.service-card p {
+        text-align: center;
+        font-size: var(--font-9);
+        padding-bottom: 25px;
+        padding-top: 20px;
+}
+
+.service-card ul {
+        margin-left: 20px;
+}
+
+.service-card ul li {
+        list-style: disc;
+        font-size: var(--font-10);
+        padding-bottom: 5px;
+}
+
+.services .points {
+        margin: 75px 0;
+}
+
+.points h2 {
+        font-size: var(--font-4);
+        padding-bottom: 30px;
+        text-align: center;
+}
+
+.points .service-points {
+        text-align: center;
+        font-size: var(--font-7);
+}
+
+.service-points p {
+        padding-bottom: 12px;
+}
+
+.service-points p::before {
+        content: '✓ ';
+        font-weight: 600;
+        color: var(--accent-color); /* Accent color */
+        margin-right: 8px;
+}
+
+/*========== Portfolio Section ==========*/
+.portfolio-cards {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        padding: 0 5rem;
+}
+
+.portfolio-cards .portfolio-card {
+        display: flex;
+        flex-direction: column;
+        /* Glassmorphism Card (Dark Theme) */
+        background: var(--glass-bg-card);
+        border: 1px solid var(--border-color);
+        backdrop-filter: blur(5px);
+        -webkit-backdrop-filter: blur(5px);
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 15px var(--shadow-color);
+}
+
+.portfolio-cards .portfolio-card:hover {
+        transform: scale(1.02);
+        box-shadow: 0 10px 20px var(--shadow-color);
+}
+
+.portfolio-card .image {
+        width: 100%;
+        height: 250px;
+}
+
+.portfolio-card .image img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+}
+
+.portfolio-card .card-txt {
+        display: flex;
+        padding: 15px 20px;
+        align-items: center;
+        gap: 15px;
+}
+
+.card-txt i {
+        font-size: var(--font-5);
+        padding: 8px;
+        border: 2px solid var(--light-text);
+        border-radius: 50%;
+        color: var(--accent-color); /* Accent color */
+}
+
+.card-txt h4 {
+        font-size: var(--font-7);
+        padding-bottom: 0;
+        font-weight: 600;
+}
+
+.portfolio-items {
+        padding: 0 5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+}
+
+.portfolio-items>div {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+}
+
+.portfolio-items p {
+        border: 1px solid var(--light-text);
+        display: inline-block;
+        padding: 10px 25px;
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 500;
+        text-align: center;
+}
+
+.portfolio-items p:hover {
+        background: var(--accent-color);
+        color: var(--dark-bg);
+        border-color: var(--accent-color);
+        transform: scale(1.05);
+}
+
+
+/*========== About Us Section ==========*/
+.about-points p {
+        padding-bottom: 12px;
+        font-size: var(--font-7);
+        text-align: center;
+}
+
+.about-points p span {
+        font-weight: 500;
+        color: var(--accent-color);
+}
+
+.about-points p::before {
+        content: '✓ ';
+        font-weight: 600;
+        color: var(--accent-color); /* Accent color */
+        margin-right: 8px;
+}
+
+.second {
+        text-align: center;
+        padding-top: 30px;
+}
+
+.second p {
+        font-weight: 500;
+}
+
+
+/*========== Contact Section (Increased Gap & Input Width) ==========*/
+
+.contact .main {
+        display: flex;
+        gap: 150px;
+        padding-bottom: 50px;
+        align-items: flex-start;
+}
+
+.main .contact-left {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+}
+
+.contact-left .items {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+}
+
+.items .contact-items {
+        display: flex;
+        flex-direction: column;
+}
+
+.contact-items p {
+        font-size: var(--font-7);
+        font-weight: 600;
+        color: var(--accent-color); /* Highlight contact headers */
+}
+
+.contact-items li,
+.contact-items a {
+        font-size: var(--font-8);
+        color: var(--light-text);
+        padding-top: 5px;
+}
+
+.contact-left .social {
+        display: flex;
+        gap: 15px;
+        margin-top: 20px;
+}
+
+.social a {
+        padding: 8px;
+        font-size: var(--font-4);
+        color: var(--light-text);
+        border: 2px solid var(--light-text);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.social a:hover {
+        background: var(--accent-color);
+        border-color: var(--accent-color);
+        color: var(--dark-bg);
+        transform: rotate(10deg);
+}
+
+.main .contact-right {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+}
+
+.contact-right form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 10px 0px;
+}
+
+form input,
+form textarea,
+form button {
+        padding: 15px 25px;
+        border: 1px solid var(--border-color);
+        border-radius: 10px;
+        font-size: var(--font-9);
+        width: 450px;
+        background-color: var(--glass-bg-card);
+        color: var(--light-text);
+}
+
+form input:focus,
+form textarea:focus{
+        border-color: var(--accent-color);
+}
+
+form textarea {
+        resize: vertical;
+        min-height: 200px;
+}
+
+form button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        cursor: pointer;
+        padding: 15px;
+        background: var(--accent-color); /* Accent color background */
+        color: var(--dark-bg); /* Dark text on button */
+        font-weight: 600;
+        width: 100%;
+        max-width: 550px;
+}
+
+form button:hover {
+        background: var(--accent-dark);
+        border-color: var(--accent-dark);
+        transform: translateY(-2px);
+}
+
+form button i {
+        color: var(--dark-bg);
+        font-size: var(--font-7);
+}
+
+form button:hover i {
+        color: var(--light-text);
+}
+
+/*========== Fixed WhatsApp Button ==========*/
+.whatsapp-fixed {
+        position: fixed;
+        bottom: 25px; /* Distance from the bottom */
+        right: 25px; /* Distance from the right */
+        width: 60px; /* Size of the button */
+        height: 60px;
+        background-color: #25D366; /* Official WhatsApp Color */
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--font-4); /* Size of the icon */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        z-index: 10000; /* Ensure it's above everything else */
+}
+
+/* Hover and active effects */
+.whatsapp-fixed:hover {
+        background-color: #128C7E;
+        transform: scale(1.1) rotate(5deg);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+
+/*========== Footer Section (Dark Theme) ==========*/
+footer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 5rem;
+        border-top: 2px solid var(--border-color);
+        background: #1e1e1e; /* Slightly lighter dark background for contrast */
+}
+
+footer h2 {
+        font-size: var(--font-5);
+        padding-bottom: 15px;
+}
+
+footer .footer-items {
+        display: flex;
+        gap: 30px;
+}
+
+footer .footer-items a {
+        color: var(--light-text);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-bottom: 5px;
+        gap: 5px;
+        font-weight: 500;
+}
+
+footer .footer-items a:hover {
+        color: var(--accent-color);
+        transform: scale(1.05);
+}
+
+footer .footer-social {
+        display: flex;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        gap: 20px;
+}
+
+.footer-social a i {
+        color: var(--light-text);
+        font-size: var(--font-5);
+        padding: 8px;
+        border: 2px solid var(--light-text);
+        border-radius: 50%;
+}
+
+.footer-social a:hover i {
+        color: var(--accent-color);
+        border-color: var(--accent-color);
+        transform: scale(1.1);
+}
+
+footer p {
+        font-size: var(--font-9);
+        padding-bottom: 5px;
+        text-align: center;
+}
+
+footer p span{
+        color: var(--accent-color);
+}
+
+/*==============================================
+        Media Queries (Updated for Dark Theme & Layout)
+==============================================*/
+
+/* Tablet and Smaller Desktop (992px) */
+@media screen and (max-width: 992px) {
+        nav {
+                padding: 1.5rem 2rem;
+        }
+
+        .services-cards {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 2rem;
+        }
+
+        .portfolio-cards {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 0 2rem;
+        }
+
+        .portfolio-items {
+                gap: 20px;
+                padding: 0 2rem;
+        }
+
+        .contact .main {
+                flex-direction: column;
+                gap: 50px;
+        }
+
+        .main .contact-right,
+        .main .contact-left {
+                width: 100%;
+        }
+
+        /* FIX 1: Ensure form elements use 100% width on medium screens */
+        form input,
+        form textarea,
+        form button {
+                max-width: 100%;
+                width: 100%; /* Set width to 100% */
+        }
+}
+
+/* Small Tablet and Large Mobile (768px) */
+@media screen and (max-width: 768px) {
+        /* General Font Size Reduction */
+        .section h3 {
+                font-size: 1.8rem;
+        }
+        .section h4 {
+                font-size: 1.1rem;
+        }
+        .home h1 {
+                font-size: 2.5rem;
+                margin-bottom: 25px;
+        }
+
+        .home p {
+                max-width: 90vw;
+                font-size: 1.1rem;
+        }
+
+        .services-cards {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+        }
+
+        /* FIX 2A: Portfolio to 2 columns (2 cards * 3 rows) */
+        .portfolio-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px; /* Adjusted gap for smaller screens */
+                padding: 0 1rem;
+        }
+
+        .portfolio-card .image {
+                height: 180px; /* Reduced image height for 2-column view */
+        }
+        
+        /* FIX 2B: Remove card-txt (the text area) from portfolio cards on mobile */
+        .portfolio-card .card-txt {
+                display: none;
+        }
+
+        .section {
+                padding: 100px 2rem;
+        }
+
+        .section h4 {
+                max-width: 90vw;
+        }
+
+        .portfolio-items {
+                flex-direction: column;
+                padding: 0 2rem;
+        }
+
+        .portfolio-items>div {
+                gap: 10px;
+                width: 100%;
+                align-items: center;
+        }
+}
+
+/* Mobile Devices (576px) */
+@media screen and (max-width: 576px) {
+        /* FIX: Decreased Font Sizes using :root variables */
+        :root {
+                --font-1: 2rem; /* Was 3.5rem (for h1) */
+                --font-2: 2.5rem; /* For Service Card icon */
+                --font-3: 1.5rem; /* Was 2rem (for section h3) */
+                --font-4: 1.25rem; /* Was 1.75rem (for h2) */
+                --font-5: 1.1rem; /* Was 1.5rem (for h5, logo) */
+                --font-6: 1rem; /* Was 1.25rem (for section h4, home p) */
+                --font-7: 1rem; /* Was 1.2rem (for service points) */
+                --font-8: 0.95rem; /* Was 1.1rem (for list items) */
+                --font-9: 0.9rem; /* Was 1rem (for general text) */
+                --font-10: 0.8rem; /* Was 0.9rem (for small list items) */
+        }
+
+        nav {
+                padding: 1rem 1.5rem;
+        }
+
+        /* Mobile Navbar (Dark Theme) */
+        .menu-icon {
+                display: block;
+                z-index: 1000;
+        }
+
+        nav .nav-items {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: rgba(18, 18, 18, 0.95); /* Darker background for mobile menu */
+                backdrop-filter: blur(15px);
+                -webkit-backdrop-filter: blur(15px);
+                flex-direction: column;
+                justify-content: center;
+                gap: 40px;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+                transition: right 0.4s ease;
+        }
+
+        nav .nav-items.active {
+                right: 0;
+        }
+
+        .home h1{
+                line-height: 45px;
+        }
+
+        /* Home section size adjustments handled by :root change */
+        .home .home-btns {
+                flex-direction: row; /* FIX: Changed to row to keep buttons in one line */
+                gap: 15px;
+                flex-wrap: wrap; /* Added wrap for safety */
+        }
+        
+        /* Ensure buttons adapt to the smaller row layout */
+        .home-btns .home-btn {
+                padding: 10px 25px;
+                font-size: var(--font-8);
+        }
+
+        .section {
+                padding: 80px 1rem;
+        }
+
+        /* FIX 1A: Reduced spacing and font sizes for Contact section on small phones */
+        .contact-left .items {
+                gap: 15px;
+        }
+
+        .contact-items p {
+                font-size: var(--font-7);
+        }
+        
+        .contact-items li {
+                font-size: var(--font-8);
+        }
+
+        .whatsapp-fixed {
+                width: 50px;
+                height: 50px;
+                bottom: 15px;
+                right: 15px;
+                font-size: var(--font-5);
+        }
+
+        .footer-items {
+                flex-direction: column;
+                gap: 3px;
+        }
+
+        .footer-items a{
+                margin-bottom: -20px;
+        }
+
+        .footer-social{
+                padding-top: 20px;
+        }
+        
+        /* FIX 2C: Ensure 2 columns remain on very small screens */
+        .portfolio-cards {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+        }
+}

@@ -1,4 +1,4 @@
-# 🚀 Digital GraphicX Creations
+# 🚀 Digital Graphic-X Creations
 
 A modern, dark-themed, glassmorphic portfolio website created for **Digital Graphicx Creations**.  
 This project showcases design services with animated backgrounds, smooth navigation, and a fully responsive user interface.

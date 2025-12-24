@@ -1,0 +1,77 @@
+=================================================
+DIGITAL GRAPHICX SOLUTIONS - WEBSITE TECHNICAL ANALYSIS REPORT
+=================================================
+
+1. GENERAL OVERVIEW
+-------------------------
+The website uses a modern, dark-themed design with a "glassmorphism" aesthetic, characterized by blurred transparency and soft shadows. It is a single-page application (SPA) style layout with smooth scrolling and a fixed navigation bar with a ScrollSpy feature for active link highlighting.
+
+2. COLOR PALETTE (CSS Variables)
+------------------------------------
+The design uses a dark theme established through CSS variables in the `:root` pseudo-class for easy maintenance and color swapping.
+
+* **--dark-bg:** #121212 (Primary dark background)
+* **--light-text:** #f0f0f0 (Primary light text color)
+* **--accent-color:** #00A3FF (Primary bright accent color - a vibrant blue)
+* **--accent-dark:** #0077c2 (Darker shade of the accent color for hover effects)
+* **--border-color:** #ffffff1a (Semi-transparent white for borders/dividers)
+* **--glass-bg:** #1e1e1eb3 (Semi-transparent dark gray for fixed Navbar)
+* **--glass-bg-card:** #1e1e1e66 (More transparent dark gray for cards/inputs)
+* **--shadow-color:** #00000080 (Semi-transparent black for box shadows)
+* **WhatsApp Button:** #25D366 (Official WhatsApp Green)
+
+3. TYPOGRAPHY AND FONT STYLES
+--------------------------------------
+The website uses a single font, imported via Google Fonts.
+
+* **Primary Font:** 'Poppins', sans-serif
+* **Import Method:** @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;...&display=swap');
+* **Font Weights Used:** Likely 100 to 900 (as the import loads all weights), with common usage of 400 (regular), 500 (medium), 600 (semibold), 700 (bold), and 800 (extra-bold).
+* **Font Sizes (Defined by CSS Variables):** A comprehensive set of 10 font size variables are defined, ranging from 3.5rem down to 0.9rem, providing a scalable and consistent typographic hierarchy.
+    * Example: --font-1 (3.5rem for H1), --font-9 (1rem for general text)
+
+4. TECHNOLOGIES & EXTERNAL RESOURCES
+-----------------------------------------------
+
+* **Styling:**
+    * **CSS Custom Properties (Variables):** Used extensively for colors and font sizes.
+    * **Flexbox & CSS Grid:** Used for layout (e.g., `nav` uses flex, `services-cards` and `portfolio-cards` use grid).
+    * **Glassmorphism:** Achieved using semi-transparent backgrounds (`--glass-bg`, `--glass-bg-card`) combined with `backdrop-filter: blur(10px);` (and `-webkit-backdrop-filter` for compatibility).
+    * **Keyframe Animations:** Two distinct animations (`moveCircles` and `moveCircles2`) are used for the animated, glowing background circles (`body::before` and `body::after`).
+* **Icons (Open Source Platforms):**
+    * **Bootstrap Icons:** Imported via CDN and used for navigation links, the WhatsApp button, and the mobile menu toggle (`bi bi-house`, `bi bi-list`, `bi bi-whatsapp`, etc.).
+        * *CDN:* https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css
+    * **Remixicon:** Imported via CDN and used primarily in the Portfolio and Contact/Footer social media sections (`ri-book-open-fill`, `ri-send-plane-fill`, `ri-facebook-fill`, etc.).
+        * *CDN:* https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css
+* **Form Submission:**
+    * The contact form uses the **FormSubmit.co** open-source platform for processing emails without a backend script.
+        * *Action:* `https://formsubmit.co/digitalgraphicxsolutions@gmail.com`
+
+5. RESPONSIVENESS (Media Queries)
+----------------------------------------
+The design is fully responsive with three main breakpoints:
+
+* **@media screen and (max-width: 992px) - Tablet/Smaller Desktop:**
+    * Navbar padding is reduced.
+    * Service and Portfolio sections switch to a **2-column** grid.
+    * Contact section changes from a side-by-side flex layout to a **column** layout.
+    * Form inputs are set to `width: 100%;`.
+* **@media screen and (max-width: 768px) - Small Tablet/Large Mobile:**
+    * General font sizes are slightly reduced (e.g., `h1` to 2.5rem).
+    * Service section switches to a **1-column** grid.
+    * Portfolio remains **2-column**.
+    * **FIX:** The card-txt area is hidden from portfolio cards.
+* **@media screen and (max-width: 576px) - Mobile Devices:**
+    * **FIX:** All 10 font-size CSS variables are overridden with smaller values (e.g., `--font-1` goes from 3.5rem to 2rem).
+    * **Mobile Navigation:** The desktop `nav-items` are hidden. A hamburger menu icon (`menu-icon`) is shown and toggles a fixed, full-height, dark, and blurred mobile menu overlay (glassmorphism effect).
+    * Home section buttons change layout (switched to row flex with wrapping).
+    * Footer items switch to a column layout.
+    * Portfolio remains **2-column**.
+
+6. KEY INTERACTIVE/ANIMATED FEATURES
+---------------------------------------------
+* **Smooth Scrolling:** Enabled via `html { scroll-behavior: smooth; }`.
+* **ScrollSpy (JavaScript):** Custom JS logic tracks the scroll position to determine which `section` is currently in view and applies the `.active` class to the corresponding `nav-items a` link, highlighting it with the `--accent-color` and `font-weight: 700;`.
+* **Background Animation:** Subtle, smooth movement and scaling of two large, blurred, accent-colored circles (`body::before` and `body::after`).
+* **Hover Effects:** Nearly all links and buttons use a `transition: all 0.3s ease;` for smooth visual feedback, including `transform: translateY(-2px)` or `transform: scale(1.05)` and color changes.
+* **Fixed WhatsApp Button:** Located at the bottom right, with an eye-catching green color and a slight rotation/scale hover effect.
